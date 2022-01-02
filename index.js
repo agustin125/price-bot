@@ -34,10 +34,15 @@ async function checkPair(args) {
   const { inputTokenSymbol, inputTokenAddress, outputTokenSymbol, outputTokenAddress, inputAmount } = args
 
   const exchangeAddress = await uniswapFactoryContract.methods.getExchange(outputTokenAddress).call()
+
+
+  console.error(exchangeAddress)
+
   const exchangeContract = new web3.eth.Contract(UNISWAP_EXCHANGE_ABI, exchangeAddress)
 
   const uniswapResult = await exchangeContract.methods.getEthToTokenInputPrice(inputAmount).call()
   let kyberResult = await kyberRateContract.methods.getExpectedRate(inputTokenAddress, outputTokenAddress, inputAmount, true).call()
+
 
   console.table([{
     'Input Token': inputTokenSymbol,
@@ -72,7 +77,7 @@ async function monitorPrice() {
       outputTokenAddress: '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2',
       inputAmount: web3.utils.toWei('1', 'ETHER')
     })
-
+/*
     await checkPair({
       inputTokenSymbol: 'ETH',
       inputTokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
@@ -80,6 +85,11 @@ async function monitorPrice() {
       outputTokenAddress: '0x6b175474e89094c44da98b954eedeac495271d0f',
       inputAmount: web3.utils.toWei('1', 'ETHER')
     })
+
+
+
+
+
 
     await checkPair({
       inputTokenSymbol: 'ETH',
@@ -89,6 +99,8 @@ async function monitorPrice() {
       inputAmount: web3.utils.toWei('1', 'ETHER')
     })
 
+
+
     await checkPair({
       inputTokenSymbol: 'ETH',
       inputTokenAddress: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
@@ -96,6 +108,18 @@ async function monitorPrice() {
       outputTokenAddress: '0x514910771af9ca656af840dff83e8264ecf986ca',
       inputAmount: web3.utils.toWei('1', 'ETHER')
     })
+    
+*/
+    
+/*
+    await checkPair({
+      inputTokenSymbol: 'BNB',
+      inputTokenAddress: '0xB8c77482e45F1F44dE1745F52C74426C631bDD52',
+      outputTokenSymbol: 'USDT',
+      outputTokenAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+      inputAmount: web3.utils.toWei('1', 'ETHER')
+    })
+    */
 
   } catch (error) {
     console.error(error)
